@@ -6,7 +6,7 @@ A powerful CLI tool for analyzing Nginx access logs with advanced filtering, gro
 
 ```bash
 # Clone and build
-git clone https://github.com/nickcheek
+git clone https://github.com/nickcheek/nginx-log-parser.git
 cd nginx-access-log-parser
 go build accesslog.go
 
