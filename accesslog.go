@@ -1051,14 +1051,14 @@ func generateReport(entries []AccessLogEntry) {
 		return
 	}
 
-	fmt.Printf("%s%s📊 NGINX ACCESS LOG REPORT%s\n", ColorBold, ColorCyan, ColorReset)
+	fmt.Printf("%s%sNGINX ACCESS LOG REPORT%s\n", ColorBold, ColorCyan, ColorReset)
 	fmt.Printf("%s%s════════════════════════════════════════%s\n", ColorBold, ColorCyan, ColorReset)
 
 	start := entries[0].Timestamp
 	end := entries[len(entries)-1].Timestamp
 	duration := end.Sub(start)
 
-	fmt.Printf("📅 Analysis Period: %s to %s (%.1f hours)\n",
+	fmt.Printf("Analysis Period: %s to %s (%.1f hours)\n",
 		start.Format("2006-01-02 15:04"),
 		end.Format("2006-01-02 15:04"),
 		duration.Hours())
@@ -1096,32 +1096,32 @@ func generateReport(entries []AccessLogEntry) {
 
 	rps := float64(len(entries)) / duration.Seconds()
 
-	fmt.Printf("🔢 Total Requests: %s%s%s\n", ColorBold, formatNumber(len(entries)), ColorReset)
-	fmt.Printf("🌐 Unique IPs: %s%s%s\n", ColorBold, formatNumber(len(ips)), ColorReset)
-	fmt.Printf("📈 Requests/Second: %s%.2f%s\n", ColorBold, rps, ColorReset)
-	fmt.Printf("💾 Total Bandwidth: %s%s%s\n", ColorBold, formatBytes(totalBytes), ColorReset)
+	fmt.Printf("Total Requests: %s%s%s\n", ColorBold, formatNumber(len(entries)), ColorReset)
+	fmt.Printf("Unique IPs: %s%s%s\n", ColorBold, formatNumber(len(ips)), ColorReset)
+	fmt.Printf("Requests/Second: %s%.2f%s\n", ColorBold, rps, ColorReset)
+	fmt.Printf("Total Bandwidth: %s%s%s\n", ColorBold, formatBytes(totalBytes), ColorReset)
 
 	if validTimings > 0 {
 		avgTime := totalTime / float64(validTimings)
-		fmt.Printf("⏱️  Avg Response Time: %s%.3fs%s\n", ColorBold, avgTime, ColorReset)
+		fmt.Printf("⏱Avg Response Time: %s%.3fs%s\n", ColorBold, avgTime, ColorReset)
 	}
 
 	errorRate := float64(errorRequests) / float64(len(entries)) * 100
 	slowRate := float64(slowRequests) / float64(len(entries)) * 100
 	botRate := float64(botRequests) / float64(len(entries)) * 100
 
-	fmt.Printf("❌ Error Rate: %s%.1f%%%s (%s requests)\n",
+	fmt.Printf("Error Rate: %s%.1f%%%s (%s requests)\n",
 		getErrorRateColor(errorRate), errorRate, ColorReset, formatNumber(errorRequests))
 	fmt.Printf("🐌 Slow Requests (>1s): %s%.1f%%%s (%s requests)\n",
 		getSlowRateColor(slowRate), slowRate, ColorReset, formatNumber(slowRequests))
-	fmt.Printf("🤖 Bot Traffic: %s%.1f%%%s (%s requests)\n",
+	fmt.Printf("Bot Traffic: %s%.1f%%%s (%s requests)\n",
 		ColorYellow, botRate, ColorReset, formatNumber(botRequests))
 
-	fmt.Printf("\n%s📊 STATUS CODE BREAKDOWN%s\n", ColorBold, ColorReset)
+	fmt.Printf("\n%sSTATUS CODE BREAKDOWN%s\n", ColorBold, ColorReset)
 	showStatusBreakdown(statusCounts, len(entries))
 
 	if *stats {
-		fmt.Printf("\n%s🔍 DETAILED INSIGHTS%s\n", ColorBold, ColorReset)
+		fmt.Printf("\n%sDETAILED INSIGHTS%s\n", ColorBold, ColorReset)
 		showTopEndpoints(entries)
 		showTopErrorPages(entries)
 		showTrafficPattern(entries)
@@ -1158,10 +1158,10 @@ func getSlowRateColor(rate float64) string {
 
 func showStatusBreakdown(statusCounts map[int]int, total int) {
 	groups := map[string][]int{
-		"🟢 Success (2xx)":      {200, 201, 202, 204, 206},
-		"🔵 Redirect (3xx)":     {301, 302, 304, 307, 308},
-		"🟡 Client Error (4xx)": {400, 401, 403, 404, 405, 429},
-		"🔴 Server Error (5xx)": {500, 502, 503, 504, 505},
+		"Success (2xx)":      {200, 201, 202, 204, 206},
+		"Redirect (3xx)":     {301, 302, 304, 307, 308},
+		"Client Error (4xx)": {400, 401, 403, 404, 405, 429},
+		"Server Error (5xx)": {500, 502, 503, 504, 505},
 	}
 
 	for label, codes := range groups {
@@ -1227,7 +1227,7 @@ func showTopEndpoints(entries []AccessLogEntry) {
 		return endpoints[i].stats.count > endpoints[j].stats.count
 	})
 
-	fmt.Printf("🔗 Top Endpoints by Request Count:\n")
+	fmt.Printf("Top Endpoints by Request Count:\n")
 	for i, ep := range endpoints {
 		if i >= 5 {
 			break
@@ -1283,7 +1283,7 @@ func showTopErrorPages(entries []AccessLogEntry) {
 		return pages[i].count > pages[j].count
 	})
 
-	fmt.Printf("\n❌ Most Common Error Pages:\n")
+	fmt.Printf("\nMost Common Error Pages:\n")
 	for i, page := range pages {
 		if i >= 5 {
 			break
@@ -1303,7 +1303,7 @@ func showTrafficPattern(entries []AccessLogEntry) {
 		hourlyTraffic[hour]++
 	}
 
-	fmt.Printf("\n📈 Traffic Pattern (24-hour):\n")
+	fmt.Printf("\nTraffic Pattern (24-hour):\n")
 
 	maxTraffic := 0
 	for _, count := range hourlyTraffic {
@@ -1362,7 +1362,7 @@ func exportCSV(entries []AccessLogEntry) {
 			entry.RequestTime)
 	}
 
-	fmt.Printf("✅ Exported %d entries to %s\n", len(entries), filename)
+	fmt.Printf("Exported %d entries to %s\n", len(entries), filename)
 }
 
 func exportJSON(entries []AccessLogEntry) {
