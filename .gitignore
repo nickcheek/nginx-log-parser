@@ -1,0 +1,82 @@
+# Go specific
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+go.work
+
+# Go build artifacts
+/nginx-parse
+/accesslog
+/nginx-log-parser
+/logparse
+/weblog
+
+# Go module cache
+go.sum
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Test coverage
+*.cover
+coverage.html
+coverage.out
+
+# Log files (don't commit actual logs)
+*.log
+access.log
+error.log
+nginx.log
+laravel.log
+
+# SSH keys and configs (security)
+*.pem
+*.key
+id_rsa*
+*.ppk
+
+# Exported data files
+nginx_access_*.csv
+nginx_access_*.json
+*.xlsx
+
+# Temporary files
+tmp/
+temp/
+.tmp/
+
+# OS generated files
+Thumbs.db
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+
+# Build and dist directories
+build/
+dist/
+bin/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Backup files
+*.bak
+*.backup
+*.orig
+
+# Installation scripts output
+install.log
